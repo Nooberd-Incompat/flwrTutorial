@@ -1,4 +1,7 @@
-def main():
+import hydra 
+from omegaconf import DictConfig, OmegaConf
+@hydra.main(config_path="conf", config_name="base" , version_base=None)
+def main(cfg:DictConfig):
     ## 1. Environment Setup 
         ## Install Python 3.8
         ## Install miniconda (https://docs.anaconda.com/miniconda/)
@@ -9,6 +12,11 @@ def main():
         ## Install Flower Framework (pip install flwr==1.4.0)
         ## Install Hydra (pip install hydra-core)
         ## Install Ray (pip install ray==1.11.1)
+
+        ## Configuration setup 
+            ## Import Hydra, DictConfig and OmegaConfig
+            ## Create a YAML file 
+            print(OmegaConf.to_yaml(cfg))
 
 
     ## 2. Dataset preparation
