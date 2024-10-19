@@ -1,5 +1,6 @@
 import hydra 
 from omegaconf import DictConfig, OmegaConf
+from dataset import prepare_dataset
 @hydra.main(config_path="conf", config_name="base" , version_base=None)
 def main(cfg:DictConfig):
     ## 1. Environment Setup 
@@ -16,10 +17,12 @@ def main(cfg:DictConfig):
         ## Configuration setup 
             ## Import Hydra, DictConfig and OmegaConfig
             ## Create a YAML file 
-            print(OmegaConf.to_yaml(cfg))
+    print(OmegaConf.to_yaml(cfg))
 
 
     ## 2. Dataset preparation
+    trainloaders, validationloaders, testloaders = prepare_dataset(cfg.num_clients, cfg.batch_size )
+    print(len(trainloaders),len(trainloaders[0].dataset))
 
     ## 3. Client Setup
 
