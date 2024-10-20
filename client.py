@@ -43,13 +43,13 @@ class FlowerClient(fl.client.NumPyClient):
         # local training
         train(self.model, self.trainloader, optim, epochs, self.device)
 
-        return self.get_parameters(), len(self.trainloader), {}
+        return self.get_parameters({}), len(self.trainloader), {}
     
     # Evaluate the global model received from the server
     def evaluate(self, parameters:NDArrays, config:Dict[str, Scalar]):
 
         self.set_parameters(parameters)
-        loss, accuracy = test(self.mode, self.valloader,self.device)
+        loss, accuracy = test(self.model, self.valloader,self.device)
         return float(loss), len(self.valloader), {'accuracy': accuracy}
     
 
