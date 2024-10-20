@@ -1,6 +1,7 @@
 import hydra 
 from omegaconf import DictConfig, OmegaConf
 from dataset import prepare_dataset
+from client import generate_client_fn
 @hydra.main(config_path="conf", config_name="base" , version_base=None)
 def main(cfg:DictConfig):
     ## 1. Environment Setup 
@@ -25,6 +26,7 @@ def main(cfg:DictConfig):
     print(len(trainloaders),len(trainloaders[0].dataset))
 
     ## 3. Client Setup
+    client_fn = generate_client_fn(trainloaders, validationloaders, cfg.num_classes)
 
     ## 4. FL Strategy and Server Setup
 
